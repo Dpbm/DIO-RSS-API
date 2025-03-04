@@ -2,7 +2,6 @@ package com.dpbm.rss.model;
 
 import jakarta.persistence.*;
 
-import java.util.Set;
 
 @Entity
 public class User {

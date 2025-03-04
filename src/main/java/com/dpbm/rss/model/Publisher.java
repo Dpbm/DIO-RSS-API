@@ -3,8 +3,6 @@ package com.dpbm.rss.model;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 
-import java.util.Set;
-
 @Entity
 public class Publisher {
     @Id
