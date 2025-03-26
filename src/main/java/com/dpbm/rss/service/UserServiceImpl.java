@@ -1,5 +1,7 @@
 package com.dpbm.rss.service;
 
+import com.dpbm.rss.exceptions.InsertWithId;
+import com.dpbm.rss.exceptions.UpdateWithoutId;
 import com.dpbm.rss.exceptions.UserNotFound;
 import com.dpbm.rss.model.User;
 import com.dpbm.rss.repository.UserRepository;
@@ -10,12 +12,15 @@ import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService{
-
     @Autowired
     private UserRepository userRepository;
 
     @Override
-    public User saveUser(User user){
+    public User saveUser(User user) throws  InsertWithId{
+        if(user.getId() != null){
+            throw new InsertWithId();
+        }
+
         return userRepository.save(user);
     }
 
@@ -33,5 +38,13 @@ public class UserServiceImpl implements UserService{
     @Override
     public void deleteUser(String id){
         userRepository.deleteById(id);
+    }
+
+    @Override
+    public User updateUser(User user) throws UpdateWithoutId{
+        if(user.getId() == null || user.getId().isEmpty()){
+            throw new UpdateWithoutId();
+        }
+        return userRepository.save(user);
     }
 }

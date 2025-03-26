@@ -14,4 +14,28 @@ public class Publisher {
 
     @Nullable
     private String website;
+
+    public String getId() {
+        return id;
+    }
+
+    public String getName(){
+        return name;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setWebsite(@Nullable String website) {
+        this.website = website;
+    }
 }
