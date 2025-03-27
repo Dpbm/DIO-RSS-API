@@ -3,6 +3,7 @@ package com.dpbm.rss.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -23,7 +24,6 @@ public class Rss {
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Publisher.class)
     @JoinColumn(name="publisher_id", referencedColumnName = "id")
     private Publisher publisher;
-
 
     public String getId() {
         return id;
@@ -65,6 +65,5 @@ public class Rss {
     public void setPublisher(Publisher publisher) {
         this.publisher = publisher;
     }
-
 
 }

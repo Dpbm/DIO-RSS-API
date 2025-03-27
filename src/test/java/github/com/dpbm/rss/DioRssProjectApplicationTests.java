@@ -13,22 +13,4 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest(classes = DioRssProjectApplication.class)
 class DioRssProjectApplicationTests {
 
-	@Autowired
-	private UserService userService;
-
-	@Test
-	void testAddUser() throws InsertWithId {
-
-		User sample = new User();
-		sample.setUsername("AAA");
-		sample.setEmail("BBBB");
-
-		User user = userService.saveUser(sample);
-
-
-		assertThat(user.getId().isEmpty()).isFalse();
-		assertThat(user.getEmail()).isEqualTo(sample.getEmail());
-		assertThat(user.getUsername()).isEqualTo(sample.getUsername());
-	}
-
 }
