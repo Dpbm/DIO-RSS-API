@@ -1,5 +1,6 @@
 package com.dpbm.rss.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.util.Set;
@@ -19,15 +20,51 @@ public class Rss {
     @Column(name="favorite", nullable = false)
     private Boolean favorite;
 
-    @ManyToOne(fetch = FetchType.LAZY, targetEntity = User.class)
-    @JoinColumn(name="user_id", referencedColumnName = "id")
-    private User user;
-
-    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Publisher.class)
-    @JoinColumn(name="from", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Publisher.class)
+    @JoinColumn(name="publisher_id", referencedColumnName = "id")
     private Publisher publisher;
 
-    @ManyToMany(fetch = FetchType.LAZY, targetEntity = Post.class)
-    @JoinTable(name="rsss_posts", joinColumns = @JoinColumn(name="rss_id"))
-    private Set<Post> posts;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getAlias() {
+        return alias;
+    }
+
+    public void setAlias(String alias) {
+        this.alias = alias;
+    }
+
+    public Boolean getFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(Boolean favorite) {
+        this.favorite = favorite;
+    }
+
+
+    public Publisher getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(Publisher publisher) {
+        this.publisher = publisher;
+    }
+
+
 }

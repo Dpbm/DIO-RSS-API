@@ -1,7 +1,10 @@
 package com.dpbm.rss.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
+
+import java.util.Set;
 
 @Entity
 public class Publisher {
@@ -12,7 +15,7 @@ public class Publisher {
     @Column(name="name", nullable = false)
     private String name;
 
-    @Nullable
+    @Column(name="website", nullable = false)
     private String website;
 
     public String getId() {
@@ -38,4 +41,6 @@ public class Publisher {
     public void setWebsite(@Nullable String website) {
         this.website = website;
     }
+
+
 }

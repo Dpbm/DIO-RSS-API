@@ -1,10 +1,8 @@
 package com.dpbm.rss.controllers;
 
-import com.dpbm.rss.exceptions.InsertWithId;
-import com.dpbm.rss.exceptions.PublisherNotFound;
-import com.dpbm.rss.exceptions.UpdateWithoutId;
-import com.dpbm.rss.exceptions.UserNotFound;
+import com.dpbm.rss.exceptions.*;
 import com.dpbm.rss.model.Publisher;
+import com.dpbm.rss.model.Rss;
 import com.dpbm.rss.model.User;
 import com.dpbm.rss.service.PublisherService;
 import com.dpbm.rss.service.ReturnMessage;
@@ -15,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/publisher")
@@ -53,4 +52,36 @@ public class PublisherController {
         Publisher updatedPublisher = publisherService.updatePublisher(publisher);
         return new ResponseEntity<>(updatedPublisher, HttpStatus.OK);
     }
+
+    @PostMapping("/{id}/rss")
+    public ResponseEntity<Rss> addRss(@PathVariable("id") String publisherId, @RequestBody Rss rss) throws UpdateWithoutId, PublisherNotFound {
+        Rss newRss = publisherService.addRss(publisherId, rss);
+        return new ResponseEntity<>(newRss, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/rss/{id}")
+    public ResponseEntity<ReturnMessage> deleteRss(@PathVariable("id") String id){
+        publisherService.deleteRss(id);
+        ReturnMessage message = new ReturnMessage("Rss was deleted");
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}/rss")
+    public ResponseEntity<List<Rss>> getRSSs(@PathVariable("id") String publisherId){
+        List<Rss> rsss = publisherService.getRSSs(publisherId);
+        return new ResponseEntity<>(rsss, HttpStatus.OK);
+    }
+
+    @GetMapping("/rss/{id}")
+    public ResponseEntity<Rss> getRSS(@PathVariable("id") String id) throws RssNotFound {
+        Rss rss = publisherService.getRss(id);
+        return new ResponseEntity<>(rss, HttpStatus.OK);
+    }
+
+    @PutMapping("/rss")
+    public ResponseEntity<Rss> addRss(@RequestBody Rss rss) throws UpdateWithoutId {
+        Rss newRss = publisherService.updateRss(rss);
+        return new ResponseEntity<>(newRss, HttpStatus.OK);
+    }
+
 }

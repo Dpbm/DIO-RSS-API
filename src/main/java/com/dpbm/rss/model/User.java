@@ -2,6 +2,8 @@ package com.dpbm.rss.model;
 
 import jakarta.persistence.*;
 
+import java.util.Set;
+
 @Entity
 public class User {
     @Id
@@ -13,6 +15,9 @@ public class User {
 
     @Column(name = "email", nullable = false, unique = true)
     private String email;
+
+    @OneToMany(fetch = FetchType.EAGER, targetEntity = Rss.class)
+    private Set<Rss> rsss;
 
     public String getId() {
         return id;
@@ -36,5 +41,13 @@ public class User {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public Set<Rss> getRsss() {
+        return rsss;
+    }
+
+    public void setRsss(Set<Rss> rsss) {
+        this.rsss = rsss;
     }
 }

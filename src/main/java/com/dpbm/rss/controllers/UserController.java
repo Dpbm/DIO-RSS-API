@@ -1,12 +1,14 @@
 package com.dpbm.rss.controllers;
 
 import com.dpbm.rss.exceptions.InsertWithId;
+import com.dpbm.rss.exceptions.RssNotFound;
 import com.dpbm.rss.exceptions.UpdateWithoutId;
 import com.dpbm.rss.exceptions.UserNotFound;
 import com.dpbm.rss.model.User;
 import com.dpbm.rss.service.ReturnMessage;
 import com.dpbm.rss.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -41,5 +43,11 @@ public class UserController {
     public ResponseEntity<User> updateUser(@RequestBody User user) throws UpdateWithoutId {
         User updatedUser = userService.updateUser(user);
         return new ResponseEntity<>(updatedUser, HttpStatus.OK);
+    }
+
+    @PatchMapping
+    public ResponseEntity<User> addRSS(@Param("userId") String userId, @Param("rssId") String rssId) throws RssNotFound,UserNotFound {
+        User newUser = userService.addRss(userId, rssId);
+        return new ResponseEntity<>(newUser, HttpStatus.OK);
     }
 }
